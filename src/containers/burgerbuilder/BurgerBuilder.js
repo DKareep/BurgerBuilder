@@ -9,7 +9,7 @@ import Spinner from '../../components/UI/Spinner/spinner';
 import withErorrHandler from '../../withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
 import * as actionTypes from '../../store/actionCreators/actionTypes';
-import * as burgerActions from '../../store/actionCreators/index';
+import * as actions from '../../store/actionCreators/index';
 
 
 class BurgerBuilder extends Component {
@@ -66,7 +66,7 @@ class BurgerBuilder extends Component {
     }
     purchaseContinueHandler = () => {
         const queryParams = [];
-
+        this.props.purchaseInit()
         for (let i in this.props.ings) {
             queryParams.push(encodeURIComponent(i) +  '=' + encodeURIComponent(this.props.ings[i]))
         }
@@ -133,19 +133,21 @@ class BurgerBuilder extends Component {
 }
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price: state.totalPrice,
-        error: state.error
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error,
+        purchasing: state.order.purchasing
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientsAdd: (igName) => dispatch(burgerActions.addIngredient(igName)),
-        onIngredientsRemove: (igName) => dispatch(burgerActions.removeIngredient(igName)),
+        onIngredientsAdd: (igName) => dispatch(actions.addIngredient(igName)),
+        onIngredientsRemove: (igName) => dispatch(actions.removeIngredient(igName)),
         onInitIngredients: () => { 
             console.log('[onInitIngredients] fired')
-            return dispatch(burgerActions.initIngredient()) }
+            return dispatch(actions.initIngredient()) },
+            purchaseInit:() => dispatch(actions.purchaseInit())
     }
 }
 

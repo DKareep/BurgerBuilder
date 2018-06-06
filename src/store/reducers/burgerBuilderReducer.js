@@ -1,4 +1,4 @@
- import * as actionTypes from './actionCreators/actionTypes';
+ import * as actionTypes from '../actionCreators/actionTypes';
 
 const initialState = {
     ingredients: null,
@@ -13,7 +13,7 @@ const INDIVIDUAL_PRICES = {
     meat: 1.2
 }
 
-const reducer = (state= initialState, action) => {
+const reducer = (state = initialState, action) => {
     console.log(action);
     
     switch(action.type) {
@@ -45,7 +45,8 @@ const reducer = (state= initialState, action) => {
                 return {
                     ...state,
                     ingredients: action.ingredients,
-                    error:false
+                    error:false,
+                    totalPrice: 4
                 }
                 break;
 
