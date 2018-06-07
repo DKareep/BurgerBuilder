@@ -117,6 +117,19 @@ class ContactData extends Component {
         if(rules.isMinLen) {
             isValid = value.length >= rules.isMinLen && isValid;
         }
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
+        }
 
         return isValid;
     }
@@ -145,25 +158,18 @@ class ContactData extends Component {
                 config: this.state.orderForm[key]
             })
         }
-        console.log(formArrayElements,'formArrayElements')
-
-        let form = ( <form onSubmit={this.orderHandler}>
-           
-          {formArrayElements.map(formElement => {
-              return (
-                  <Input 
-                  key={formElement.id}
-                  elementType = {formElement.config.elementType}
-                  elementConfig = {formElement.config.elementConfig}
-                  value={formElement.config.value}
-                  changed= {(event) => this.inputChangeHandler(event, formElement.id)}
-                  />
-              )
-              
-          })}
-          
-            <Button btnType="Success"> ORDER NOW </Button>
-                 </form>);
+        let form = formArrayElements.map(formElement => {
+                            return (
+                                <Input 
+                                key={formElement.id}
+                                elementType = {formElement.config.elementType}
+                                elementConfig = {formElement.config.elementConfig}
+                                value={formElement.config.value}
+                                changed= {(event) => this.inputChangeHandler(event, formElement.id)}
+                                />
+                                )
+                            });
+                    
         if(this.props.loading) {
             form = <Spinner />
         }
@@ -171,7 +177,9 @@ class ContactData extends Component {
         return (
             <div className={classes.ContactData}>
             <h4>Enter your contact data </h4>
+            <form onSubmit={this.orderHandler}>
            {form}
+           </form>
         </div>
         )
    
