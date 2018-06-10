@@ -3,7 +3,7 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 import {Route, Redirect} from 'react-router-dom';
 import ContactData from './ContactData/ContactData';
 import {connect} from 'react-redux';
-import * as orderActions from '../../store/actionCreators/index';
+
 class Checkout extends Component {
 
     state = {
@@ -17,8 +17,8 @@ class Checkout extends Component {
         const ingredients = {};
         let price = 0;
         for (let param of query.entries()) {
-            console.log(param);
-            if(param[0] == 'price') {
+            // console.log(param);
+            if(param[0] === 'price') {
                 price = param[1];
             } else {
                 ingredients[param[0]] = +param[1];
@@ -26,7 +26,7 @@ class Checkout extends Component {
             
         }
         this.setState({ingredients: ingredients, totalPrice: price}, () => {
-            console.log(this.state.ingredients)
+            // console.log(this.state.ingredients)
         })
     }
 
@@ -38,7 +38,7 @@ class Checkout extends Component {
         this.props.history.replace('/checkout/contact-data');
     }
     componentDidMount() {
-        console.log(this.state.ingredients, 'this.state.ingredients');
+        // console.log(this.state.ingredients, 'this.state.ingredients');
     }
 
     render () {

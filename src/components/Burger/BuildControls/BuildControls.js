@@ -21,7 +21,7 @@ const BuildControls = (props) => {
                   label={ctrl.label}
                   type={ctrl.type}
                   addIngredients = {() => {
-                      console.log('clicked');
+          
                    return props.addIngredients(ctrl.type); } }
                   removeIngredients = {() => props.removeIngredients(ctrl.type)}
                   disabled={props.disabled[ctrl.type]}
@@ -32,7 +32,7 @@ const BuildControls = (props) => {
             <button className={Classes.OrderButton}
                     disabled={!props.purchasable}
                     onClick={props.orderActive}
-            >Order Now</button>
+            > {props.isAuth ? 'Order Now': 'Signup up to Order'}</button>
         </div>
     )
 };

@@ -25,7 +25,7 @@ const Input = (props) => {
              />
             break;
         case ('select'):
-        console.log(props.elementConfig.options , 'el config')
+        // console.log(props.elementConfig.options , 'el config')
             inputElement = 
             <select className={classes.InputElement} onChange={props.changed}>
               {props.elementConfig.options.map(option => {

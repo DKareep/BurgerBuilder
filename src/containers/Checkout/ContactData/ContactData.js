@@ -85,7 +85,8 @@ class ContactData extends Component {
                 valid: true
             },
         },
-        loading: false
+        loading: false,
+        formIsValid: false
 
     }
 
@@ -102,9 +103,11 @@ class ContactData extends Component {
        const order = {
            ingredients: this.props.ingredients,
            totalPrice: this.props.totalPrice,
-           order: formData
+           order: formData,
+           userId: this.props.userId
        }
-       this.props.onOrderBurger(order)
+     
+       this.props.onOrderBurger(order, this.props.token)
     
       
 
@@ -146,7 +149,7 @@ class ContactData extends Component {
         updatedOrderElement.value = event.target.value;
         updatedOrderElement.valid = this.checkValidity(updatedOrderElement.value, updatedOrderElement.validation)
         updatedOrderForm[key] = updatedOrderElement;
-        console.log(updatedOrderForm);
+        // console.log(updatedOrderForm);
         this.setState({orderForm: updatedOrderForm})
 
     }
@@ -179,6 +182,7 @@ class ContactData extends Component {
             <h4>Enter your contact data </h4>
             <form onSubmit={this.orderHandler}>
            {form}
+           <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
            </form>
         </div>
         )
@@ -186,13 +190,16 @@ class ContactData extends Component {
     }
 }
 const mapStateToProps = (state) => {
+    
     return {
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-            onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurger(orderData))
+            onOrderBurger: (orderData, token) => dispatch(orderActions.purchaseBurger(orderData, token))
     }
     
 }

@@ -10,12 +10,12 @@ class BurgerIngredients extends Component{
 
         switch (this.props.type) {
             case ('bread-bottom'):
-                ingredient = <div className={classes.BreadBottom}><img src={BurgerBottom} /></div>;
+                ingredient = <div className={classes.BreadBottom}><img alt="BrugerBottom" src={BurgerBottom} /></div>;
                 break;
             case ('bread-top'):
                 ingredient = (
                     <div className={classes.BreadTop}>
-   <img src={BurgerTop} />
+   <img alt="BurgerTop" src={BurgerTop} />
                     </div>
                 );
                 break;
